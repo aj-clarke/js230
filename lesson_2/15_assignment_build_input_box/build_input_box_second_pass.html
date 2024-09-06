@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Build an Input Box</title>
+    <style>
+      .text-field {
+        border: solid 1px #ccc;
+        padding: 1em;
+        cursor: pointer;
+        font-family: sans-serif;
+        font-size: 18px;
+        overflow: hidden;
+        width: 300px; 
+      }
+
+      .text-field .content {
+        display: inline-block;
+        height: 21px;
+        float: left;
+        white-space: pre;
+      }
+
+      .text-field.focused {
+        border-color: black;
+      }
+
+      .text-field.cursor .content {
+        border-right: solid 2px black;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="text-field">
+      <div class="content"></div>
+    </div>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        let textField = document.querySelector('.text-field');
+        let contentField = document.querySelector('.content');
+        textField.setAttribute('tabindex', '0');
+        let clearCursorId;
+
+        textField.addEventListener('keydown', event => {
+          event.stopPropagation();
+          if (textField.classList.contains('focused')) {
+            if (event.key === 'Backspace') {
+              contentField.textContent = contentField.textContent.slice(0, -1);
+            } else {
+              let currentTextContent = contentField.textContent || '';
+              contentField.textContent = `${currentTextContent + String(event.key)}`;
+            }
+          }
+        });
+
+        textField.addEventListener('click', event => {
+          event.stopPropagation();
+          if (!textField.classList.contains('focused')) {
+            textField.classList.add('focused');
+          }
+          
+          if (clearCursorId) {
+            clearInterval(clearCursorId);
+          }
+          
+          clearCursorId = setInterval(() => {
+            textField.classList.toggle('cursor');
+          }, 500);
+          
+        });
+
+        document.addEventListener('click', event => {
+          event.stopPropagation();
+          if (textField.classList.contains('focused')) {
+            textField.classList.remove('focused');
+          }
+
+          if (clearCursorId) {
+            clearInterval(clearCursorId);
+          }
+
+          if (textField.classList.contains('cursor')) {
+            textField.classList.toggle('cursor');
+          }
+        });
+
+      });
+    </script>
+  </body>
+</html>

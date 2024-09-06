@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>Empty Page</title>
+  </head>
+  <body>
+    
+    <script>
+      let paragraph = document.createElement('p');
+      paragraph.textContent = "I am a new paragraph that was added to the DOM!";
+      document.body.append(paragraph);
+      let text = document.createTextNode(' Appending a text node as well!');
+      paragraph.append(text);
+      
+      let paragraph2 = paragraph.cloneNode(true);
+      document.body.append(paragraph2);
+    </script>
+  </body>
+</html>

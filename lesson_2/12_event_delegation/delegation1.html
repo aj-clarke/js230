@@ -1,0 +1,38 @@
+<head>
+  <style>
+    #message {
+      padding: .5em .8em;
+      background-color: lightyellow;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+  <button>One</button>
+  <button>Two</button>
+  <button>Three</button>
+  <button>Four</button>
+
+  <div>
+    <p>
+      <button>Five</button>
+      <button>Six</button>  
+      <button>Seven</button>
+      <button>Eight</button>
+    </p>
+  </div>
+
+  <div id="message"></div>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      document.addEventListener('click', event => {
+        if (event.target instanceof HTMLButtonElement) {
+          let messageText = document.getElementById('message');
+          messageText.textContent = event.target.textContent + ' was clicked!';
+        }
+      });
+
+    });
+  </script>
+</body>
